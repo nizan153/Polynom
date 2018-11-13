@@ -454,10 +454,20 @@ public class Polynom implements Polynom_able{
 		return str;
 	}
 	
+	/**
+	 * get polynom and runs a gui of the polynom
+	 * @param pol 
+	 */
 	public void runGUI(Polynom pol) {
 		JavmosGUI gui = new JavmosGUI(pol.toString());
 	}
 	
+	/**
+	 * get a polynom and x0, x1 the range of the polynom to draw
+	 * @param pol
+	 * @param x0
+	 * @param x1
+	 */
 	public void runGUI(Polynom pol, double x0, double x1) {
 		JavmosGUI gui = new JavmosGUI(pol.toString(), Math.min(x0, x1), Math.max(x0, x1));
 	}
