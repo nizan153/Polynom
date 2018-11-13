@@ -458,8 +458,8 @@ public class Polynom implements Polynom_able{
 	 * get polynom and runs a gui of the polynom
 	 * @param pol 
 	 */
-	public void runGUI(Polynom pol) {
-		JavmosGUI gui = new JavmosGUI(pol.toString());
+	public void runGUI() {
+		JavmosGUI gui = new JavmosGUI(this.toString());
 	}
 	
 	/**
@@ -468,7 +468,7 @@ public class Polynom implements Polynom_able{
 	 * @param x0
 	 * @param x1
 	 */
-	public void runGUI(Polynom pol, double x0, double x1) {
-		JavmosGUI gui = new JavmosGUI(pol.toString(), Math.min(x0, x1), Math.max(x0, x1));
+	public void runGUI(double x0, double x1) {
+		JavmosGUI gui = new JavmosGUI(this.toString(), Math.min(x0, x1), Math.max(x0, x1));
 	}
 }
