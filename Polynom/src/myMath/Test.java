@@ -10,7 +10,7 @@ public class Test {
 	public static void main(String[] args) {
 		Polynom p = new Polynom("0.2x^4-1.5x^3+3.0x^2-x-5");
 		p.runGUI(p, -2, 6);
-		test1();
+//		test1();
 	}
 	
 	public static void test1() {

@@ -84,6 +84,8 @@ public final class JavmosGUI {
     	MAX_DOMAIN = 50;
     	minDomainField = new JTextField(Double.toString(MIN_DOMAIN));
     	maxDomainField = new JTextField(Double.toString(MAX_DOMAIN));
+    	minRangeField.setEditable(false);
+    	maxRangeField.setEditable(false);
         // Add the plane and control panels to the main panel
         mainPanel.add(createJavmosPanel());
         mainPanel.add(createControlPanel());
@@ -101,6 +103,9 @@ public final class JavmosGUI {
     	minDomainField = new JTextField(Double.toString(MIN_DOMAIN));
     	maxDomainField = new JTextField(Double.toString(MAX_DOMAIN));
     	equationField.setText(pol);
+    	equationField.setEditable(false);
+    	minRangeField.setEditable(false);
+    	maxRangeField.setEditable(false);
         // Add the plane and control panels to the main panel
         mainPanel.add(createJavmosPanel());
         mainPanel.add(createControlPanel());
@@ -119,6 +124,9 @@ public final class JavmosGUI {
     	minDomainField = new JTextField(Double.toString(MIN_DOMAIN));
     	maxDomainField = new JTextField(Double.toString(MAX_DOMAIN));
     	equationField.setText(pol);
+    	equationField.setEditable(false);
+    	minRangeField.setEditable(false);
+    	maxRangeField.setEditable(false);
         // Add the plane and control panels to the main panel
         mainPanel.add(createJavmosPanel());
         mainPanel.add(createControlPanel());
