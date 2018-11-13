@@ -2,7 +2,7 @@ package myMath;
 
 /**
  * This class Test the program.
- * @author Nitzan
+ * @author Nitzan and Rivka
  *
  */
 
