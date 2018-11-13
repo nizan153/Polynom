@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-
+import javmos2.JavmosGUI;
 import myMath.Monom;
 /**
  * This class represents a Polynom with add, multiply functionality, it also should support the following:
@@ -12,7 +12,7 @@ import myMath.Monom;
  * 2. Finding a numerical value between two values (currently support root only f(x)=0).
  * 3. Derivative
  * 
- * @author Nitzan
+ * @author Nitzan and Rivka
  *
  */
 public class Polynom implements Polynom_able{
@@ -39,14 +39,16 @@ public class Polynom implements Polynom_able{
 		int pow = 0;
 		arrayListPolynom = new ArrayList<>();
 
-		// Check if string not empty
-		if(str.length() == 0)
-			throw new RuntimeException("String can't be empty");
 
 
 		str = str.toLowerCase();
 		str = str.replaceAll("\\s+", ""); //remove spaces
+		str = str.replaceAll("\\*", ""); //remove *
 
+		// Check if string not empty
+		if(str.length() == 0)
+			throw new RuntimeException("String can't be empty");
+		
 		// Check if all power are positive
 		for (int i = 0; i < str.length(); i++) {
 			if(str.charAt(i) == '^' && str.charAt(i+1) == '-')
@@ -59,7 +61,7 @@ public class Polynom implements Polynom_able{
 		try {
 			// Loop to initialize the arraylist with monom
 			for (int i = 0; i < part.length; i++) {
-				if(part[i].isEmpty())
+				if(part[i].isEmpty() || (part[i].length() == 1 && part[i].charAt(0) == '-'))
 					i++;
 				// add monom with power 0 
 				if(!part[i].contains("x")) {
@@ -201,26 +203,13 @@ public class Polynom implements Polynom_able{
 	 */
 	@Override
 	public void substract(Polynom_able p1) {
-		Monom m1;
-		Polynom_able tmpPol = new Polynom();
+		Iterator<Monom> it = p1.iteretor();
+		while(it.hasNext()) {
+			Monom m=it.next();
+			m.multyply(new Monom(-1, 0));
+			this.add(m);
 
-		// create new polynom with monoms with opposite coefficient
-		if(p1 instanceof Polynom) {
-			Iterator<Monom> it = p1.iteretor();
-			while(it.hasNext()) {
-				m1 = it.next();
-				int pow = m1.get_power();
-				double cof = m1.get_coefficient();
-				tmpPol.add(new Monom(cof*-1, pow));
-			}
 		}
-		else
-			throw new RuntimeException("p1 is not Polynom");
-
-		// add new polynom with opposite coefficient
-		add(tmpPol);
-		removeZero();
-		sort();
 	}
 
 	/**
@@ -314,26 +303,30 @@ public class Polynom implements Polynom_able{
 	 */
 	@Override
 	public double root(double x0, double x1, double eps) {
-		double mid = 0;
-
-		// if polynom desn't have roots throw exception
-		if(f(x0) * f(x1) > 0)
-			throw new RuntimeException("This polynom doesn't have roots found");
-
-		// loop find the root in range of x0,x1
-		while (Math.abs(x1-x0) >= eps) {
-			mid = (x0+x1)/2;
-
-			if (f(mid) == 0)
-				return mid;
-			else if(f(x0)*f(mid) < 0)
-				x1 = mid;
-			else
-				x0 = mid;
+		double xmid=0;
+		double xR = Math.max(x0, x1);
+		double xL = Math.min(x0, x1);
+		
+		if(this.f(x0)*this.f(x1) <= 0) {
+			do {
+				xmid = (xR+xL)/2;
+				if(f(xL)*f(xmid) >0)
+					xL = xmid;
+				else
+					xR = xmid;
+			}while(Math.abs(this.f(xmid)) > eps);
 		}
-
-
-		return mid;
+		else {
+			if(f(xR) == 0)
+				return xR;
+			if(f(xL) == 0)
+				return xL;
+			
+			throw new RuntimeException("Error");
+			
+		}
+		
+		return xmid;
 	}
 
 	/**
@@ -375,16 +368,39 @@ public class Polynom implements Polynom_able{
 	@Override
 	public double area(double x0, double x1, double eps) {
 		double sumOfArea = 0;
+		double xR = Math.max(x0, x1);
+		double xL = Math.min(x0, x1);
 
-		while (x1 > x0) {
-			if(f(x0) > 0)
-				sumOfArea += eps * f(x0);
-			x0 += eps;
+		while (xR > xL) {
+			if(f(xL) > 0)
+				sumOfArea += eps * f(xL);
+			xL += eps;
 		}
 
 		return sumOfArea;
 	}
+	
+	/**
+	 * Compute Riemann's Integral over this Polynom starting from x0, till x1 using eps size steps
+	 * @param x0 start point
+	 * @param x1 end point
+	 * @param eps width of the rectangle 
+	 * @return the approximated area UNDER the x-axis below this Polynom and between the [x0,x1] range
+	 */
+	public double areaUnderX(double x0, double x1, double eps) {
+		double sumOfArea = 0;
+		double xR = Math.max(x0, x1);
+		double xL = Math.min(x0, x1);
 
+		while (xR > xL) {
+			if(f(xL) < 0)
+				sumOfArea += eps * f(xL);
+			xL += eps;
+		}
+
+		return Math.abs(sumOfArea);
+	}
+	
 	/**
 	 * returns the iterator of polynom
 	 * @return iterator of monom for this polynom
@@ -436,5 +452,13 @@ public class Polynom implements Polynom_able{
 		str = str.substring(0, str.length()-1);
 
 		return str;
+	}
+	
+	public void runGUI(Polynom pol) {
+		JavmosGUI gui = new JavmosGUI(pol.toString());
+	}
+	
+	public void runGUI(Polynom pol, double x0, double x1) {
+		JavmosGUI gui = new JavmosGUI(pol.toString(), Math.min(x0, x1), Math.max(x0, x1));
 	}
 }

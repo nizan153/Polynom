@@ -8,6 +8,8 @@ package myMath;
 
 public class Test {
 	public static void main(String[] args) {
+		Polynom p = new Polynom("0.2x^4-1.5x^3+3.0x^2-x-5");
+		p.runGUI(p, -2, 6);
 		test1();
 	}
 	
@@ -95,7 +97,7 @@ public class Test {
 		
 		// root
 		System.out.println("\n root");
-		System.out.println("the root of " + p1 + " in the range [1,10] is " + p1.root(1, 10, 0.0001));
+		System.out.println("the root of " + p1 + " in the range [1,10] is " + p1.root(1, 5, 0.0001));
 		System.out.println("the root of " + p2 + " in the range [0,7] is " + p2.root(0,7, 0.0001));
 		System.out.println("the root of " + p3 + " in the range [-5,1] is " + p3.root(-5,1, 0.0001));
 		

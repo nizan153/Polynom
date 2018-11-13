@@ -4,7 +4,7 @@ package myMath;
  * This class represents a simple "Monom" of shape a*x^b, where a is a real number and a is an integer (summed a none negative), 
  * see: https://en.wikipedia.org/wiki/Monomial 
  * The class implements function and support simple operations as: construction, value at x, derivative, add and multiply. 
- * @author Nitzan
+ * @author Nitzan and Rivka
  *
  */
 public class Monom implements function{
@@ -90,7 +90,19 @@ public class Monom implements function{
 	public Monom derivative() {
 		return this._power == 0 ? new Monom(0, 0) : new Monom(this._coefficient*this._power, this._power-1);   
 	}
-	
+
+	/**
+	 * 
+	 * @param x multyply this polynom by monom x
+	 */
+	public void multyply (Monom x) {
+		this.set_coefficient(this._coefficient* x.get_coefficient());
+		this.set_power(this._power + x.get_power());
+		if(this.get_power()<0) {
+			this.set_coefficient(0);
+		}
+	}
+		
 	/**
 	 * String a representation of this Monom
 	 * @return a String representation of this Monom

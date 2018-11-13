@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 /**
  * This class compare which power is higher between 2 monoms
- * @author Nitzan
+ * @author Nitzan and Rivka
  *
  */
 public class Monom_Comperator implements Comparator<Monom> {
