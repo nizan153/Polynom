@@ -1,5 +1,6 @@
 # Polynom
 # Nitzan 203826813, Rivka 208736827 
+* https://github.com/nizan153/Polynom.wiki.git
 Summary of the project 
 In this project we implemented and represent monom and polynom as list of monoms. The Monom is represent in the shape of ax^b where a is real number and b is an integer (none negative). 
 The polynom is represent as list of monoms in the shape of a_1x^b_1+a_2x^b_2+…+a_nx^b_n (x can be capital latter or lower-case latter, can use space between +/- and the power can’t be negative). The polynom has a number of functionalities such as add another polynom or monom, subtract polynom, derivative of the polynom, find the root in a range of x0 and x1, and more. 
