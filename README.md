@@ -1,5 +1,5 @@
 # Polynom
-# Nitzan 203826813, Rivka 208736827 
+# Nitzan , Rivka  
 * There is a detailed description in wiki about all the functions that exist
 * Summary of the project 
 In this project we implemented and represent monom and polynom as list of monoms. The Monom is represent in the shape of ax^b where a is real number and b is an integer (none negative). 
